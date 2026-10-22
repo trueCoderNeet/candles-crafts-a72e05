@@ -234,7 +234,7 @@
     }
 
     function sendOrder() {
-      let orderText = "Hello Candle & Craft! I would like to order:%0A%0A";
+      let orderText = "Hello Candle & Craft! I would like to order:\n\n";
       let total = 0;
       let hasItems = false;
 
@@ -243,15 +243,15 @@
         let item = items.find(i => i.id == id);
         let subtotal = cart[id] * item.price;
         total += subtotal;
-        orderText += `- ${item.name} x ${cart[id]} = ₹${subtotal}%0A`;
+        orderText += `- ${item.name} x ${cart[id]} = ₹${subtotal}\n`;
       }
 
-      if (!hasItems) {
+      if(!hasItems) {
         alert("Your cart is empty!");
         return;
       }
 
-      orderText += `%0A*Total Amount: ₹${total}*`;
+      orderText += `\n*Total Amount: ₹${total}*`;
 
       // Update this number to your real WhatsApp number!
       let phone = "+917829000990";
