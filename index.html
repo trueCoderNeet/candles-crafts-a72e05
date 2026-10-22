@@ -7,9 +7,11 @@
   <title>Candle & Craft</title>
   <style>
     /* This rule completely hides the Netlify badge */
-    a[href*="netlify.com"] {
-      display: none !important;
-    }
+      #netlify-badge, .netlify-badge, iframe[src*="netlify"], a[href*="netlify"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+      }
 
     :root {
       --primary: #f8c8dc; /* Pastel Pink */
