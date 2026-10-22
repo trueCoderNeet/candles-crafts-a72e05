@@ -233,7 +233,8 @@
       document.getElementById('cart-total').innerText = totalAmount;
     }
 
-   let orderText = "Hello Candle & Craft! I would like to order:\n\n";
+   function sendOrder() {
+      let orderText = "Hello Candle & Craft! I would like to order:\n\n";
       let total = 0;
       let hasItems = false;
 
@@ -252,7 +253,7 @@
 
       orderText += `\n*Total Amount: ₹${total}*`;
       
-      let phone = "917829000990"; 
+      let phone = "910000000000"; 
       
       let whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(orderText)}`;
       window.open(whatsappUrl, '_blank');
