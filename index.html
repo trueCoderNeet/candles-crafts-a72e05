@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candle & Craft</title>
+  <style>
+    :root {
+      --primary: #f8c8dc;
+      /* Pastel Pink */
+      --secondary: #bde0fe;
+      /* Pastel Blue */
+      --text: #4a4a4a;
+      --bg: #fffcf9;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background-color: var(--primary);
+      text-align: center;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      padding: 1rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .category-title {
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+      color: #6a8caf;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      border: 1px solid #f1f1f1;
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #e5989b;
+      margin: 5px 0;
+    }
+
+    .add-btn {
+      background-color: var(--secondary);
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .add-btn:active {
+      background-color: #90cdf4;
+    }
+
+    .cart-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      padding: 15px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Candle & Craft</h1>
+  </header>
+
+  <div class="container" id="catalog"></div>
+
+  <div class="cart-bar">
+    <div>
+      <span id="cart-count">0</span> items | ₹<span id="cart-total">0</span>
+    </div>
+    <a href="#" id="whatsapp-link" class="whatsapp-btn" onclick="sendOrder()">
+      Order on WhatsApp
+    </a>
+  </div>
+
+  <script>
+    // Mapped your Google Drive image IDs exactly to the renamed files
+    const items = [
+      // Gypsum Items
+      {id: 1, name: "Oval Tray", category: "Gypsum Powder Items", price: 400, img: "1jt8x4N7FbAm-NFFBjXyNO2u5CIcW2YIE"},
+      {id: 2, name: "Bubble Tray Big", category: "Gypsum Powder Items", price: 300, img: "1ZF4CQp0VzofgsuLJtUHUnRW1D5yivtqx"},
+      {id: 3, name: "Bubble Tray Small", category: "Gypsum Powder Items", price: 200, img: "1TJDBlu3U-S7-9a0C1D2u9XUGYuhjpr4X"},
+      {id: 4, name: "Doll girl planter", category: "Gypsum Powder Items", price: 500, img: "134kA19fBiXH4iY-VdnM3UFacr9Mr5JFD"},
+      {id: 5, name: "Star Candle Holder", category: "Gypsum Powder Items", price: 100, img: "1yI9ydmP2agNi3G7Mkg-bDiZKtITPccE_"},
+      {id: 6, name: "Big Small Hexagonal holder", category: "Gypsum Powder Items", price: 150, img: "1ueWudFDveOs4l9z-eiW0XXNQsRRdmgVM"},
+      {id: 7, name: "Heart Candle Holder", category: "Gypsum Powder Items", price: 100, img: "1Hg2sw9ABlFzqp6cCNDXrRsPtjV5wewW9"},
+      {id: 8, name: "Planter Set", category: "Gypsum Powder Items", price: 800, img: "1OPhuOSTadI6Rk7-plm8IXpCdPRZCM_Wx"},
+      {id: 9, name: "Knotted Candle Holder", category: "Gypsum Powder Items", price: 200, img: "15VE0KZ3vNImgHZ3KJ2wTpZYQZUjnpvYE"},
+      {id: 10, name: "DIY Kits", category: "Gypsum Powder Items", price: 30, img: ""},
+
+      // Candle Items
+      {id: 11, name: "Diya pack of 2", category: "Candle Items", price: 175, img: "1mO1oiQFl_VwQl3pJnIQUUxCj1X0Axu9l"},
+      {id: 12, name: "Diya Pack Of 4", category: "Candle Items", price: 300, img: "1mO1oiQFl_VwQl3pJnIQUUxCj1X0Axu9l"},
+      {id: 13, name: "Modak Diya Big set of 2", category: "Candle Items", price: 300, img: "1ngw1IuSy5Ae93dcqcs5mxQyu-pIqbhRr"},
+      {id: 14, name: "Scented candle Jar", category: "Candle Items", price: 350, img: "1bCNZpCtD5QrSwcAhp8j_SqxfMjwytBTH"},
+      {id: 15, name: "Scented candle bowl", category: "Candle Items", price: 400, img: "1LYQ_rVwIlMEZMKQ2ZDGhODMCb2HU6yYR"},
+      {id: 16, name: "Shankh Candle", category: "Candle Items", price: 450, img: "1ivmb_hzPVLVCZXnqxUhb4VcCxgu5Hajg"},
+      {id: 17, name: "Tea light candle (Star,Flower,butterfly)", category: "Candle Items", price: 100, img: "1pJnyLD_5fek6NRvVImIAtgPQGKpjYa_m"},
+      {id: 18, name: "Tin Candles", category: "Candle Items", price: 150, img: "1DSabk2vIfzBG7bH_0wGxoZvSobBIWwW-"},
+      {id: 19, name: "Modak & Laddu Candles Loose", category: "Candle Items", price: 30, img: "1xdq_xN2zrQMOQ6PZU9GDmhwMQKmzuS-M"},
+      {id: 20, name: "Modak Laddu shots", category: "Candle Items", price: 60, img: "1PzZO04ZI6cweU4WFfutms2gZc2DRcTUD"},
+      {id: 21, name: "Floating Lotus Big", category: "Candle Items", price: 100, img: "1pBUoYb9n64_-xQ5Df2X6M8h9dfZIO1s_"},
+      {id: 22, name: "Floating Lotus Small", category: "Candle Items", price: 120, img: "1op9LrddCd9O65xKnjOuKB5juMSSOnQtm"},
+      {id: 23, name: "Floating daisy Sunflower/ daisy", category: "Candle Items", price: 30, img: "1Hufmao9rdZe0ydxwhf0LwtHUB53t3MHZ"},
+      {id: 24, name: "3.5 \" Urli", category: "Candle Items", price: 250, img: "1hh2PxunP0bwGZ1CcLEW42h7NnkvDw9Wu"},
+      {id: 25, name: "4.5 \" Urli", category: "Candle Items", price: 270, img: "1hh2PxunP0bwGZ1CcLEW42h7NnkvDw9Wu"},
+      {id: 26, name: "Peacock Urli", category: "Candle Items", price: 500, img: "1jzUMsoxCsWdIYr8IbT-TGZ1rqJXEdbUs"}
+    ];
+
+    let cart = {};
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog');
+      const categories = ["Gypsum Powder Items", "Candle Items"];
+
+      categories.forEach(cat => {
+        const catHtml = document.createElement('div');
+        catHtml.innerHTML = `<h2 class="category-title">${cat}</h2><div class="grid" id="grid-${cat.split(' ')[0]}"></div>`;
+        container.appendChild(catHtml);
+
+        const grid = document.getElementById(`grid-${cat.split(' ')[0]}`);
+        items.filter(i => i.category === cat).forEach(item => {
+
+          // Added logic to handle missing images beautifully!
+          const imgUrl = item.img ?
+            `https://drive.google.com/thumbnail?id=${item.img}&sz=w500` :
+            `https://via.placeholder.com/150x120?text=No+Image`;
+
+          grid.innerHTML += `
+            <div class="card">
+              <img src="${imgUrl}" alt="${item.name}" loading="lazy">
+              <p style="font-size: 14px; margin: 10px 0 5px;">${item.name}</p>
+              <p class="price">₹${item.price}</p>
+              <button class="add-btn" onclick="addToCart(${item.id})">Add to Cart</button>
+            </div>
+          `;
+        });
+      });
+    }
+
+    function addToCart(id) {
+      if (cart[id]) {
+        cart[id]++;
+      } else {
+        cart[id] = 1;
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      let totalQty = 0;
+      let totalAmount = 0;
+
+      for (let id in cart) {
+        let item = items.find(i => i.id == id);
+        totalQty += cart[id];
+        totalAmount += cart[id] * item.price;
+      }
+
+      document.getElementById('cart-count').innerText = totalQty;
+      document.getElementById('cart-total').innerText = totalAmount;
+    }
+
+    function sendOrder() {
+      let orderText = "Hello Candle & Craft! I would like to order:%0A%0A";
+      let total = 0;
+      let hasItems = false;
+
+      for (let id in cart) {
+        hasItems = true;
+        let item = items.find(i => i.id == id);
+        let subtotal = cart[id] * item.price;
+        total += subtotal;
+        orderText += `- ${item.name} x ${cart[id]} = ₹${subtotal}%0A`;
+      }
+
+      if (!hasItems) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      orderText += `%0A*Total Amount: ₹${total}*`;
+
+      // Update this number to your real WhatsApp number!
+      let phone = "910000000000";
+
+      let whatsappUrl = `https://wa.me/${phone}?text=${orderText}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    window.onload = renderCatalog;
+  </script>
+</body>
+
+</html>
