@@ -6,11 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candle & Craft</title>
   <style>
+    /* This rule completely hides the Netlify badge */
+    a[href*="netlify.com"] {
+      display: none !important;
+    }
+
     :root {
-      --primary: #f8c8dc;
-      /* Pastel Pink */
-      --secondary: #bde0fe;
-      /* Pastel Blue */
+      --primary: #f8c8dc; /* Pastel Pink */
+      --secondary: #bde0fe; /* Pastel Blue */
       --text: #4a4a4a;
       --bg: #fffcf9;
     }
@@ -146,7 +149,6 @@
   </div>
 
   <script>
-    // Mapped your Google Drive image IDs exactly to the renamed files
     const items = [
       // Gypsum Items
       {id: 1, name: "Oval Tray", category: "Gypsum Powder Items", price: 400, img: "1jt8x4N7FbAm-NFFBjXyNO2u5CIcW2YIE"},
@@ -193,7 +195,6 @@
         const grid = document.getElementById(`grid-${cat.split(' ')[0]}`);
         items.filter(i => i.category === cat).forEach(item => {
 
-          // Added logic to handle missing images beautifully!
           const imgUrl = item.img ?
             `https://drive.google.com/thumbnail?id=${item.img}&sz=w500` :
             `https://via.placeholder.com/150x120?text=No+Image`;
